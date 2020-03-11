@@ -1,0 +1,37 @@
+send////////
+
+$branches=$this->getDataFromApi('appointment','branches');
+       
+return view('Admin.branches.index',compact('id','mainlink','sublink','Adminminlink','adminsublink','branches'));
+
+
+
+
+
+
+
+
+
+reseive////////////////
+
+
+public function whichServer()
+    {
+        return array(
+            'appointment' => 'http://61.247.189.150:800/pdcl-appointment/api'
+        );
+    }
+
+    public function getDataFromApi($where,$link)
+    {
+        $client = new Client();
+        $response = $client->request('GET', $this->whichServer()[$where].'/'.$link);
+        $statusCode = $response->getStatusCode();
+        $body = $response->getBody()->getContents();
+        return json_decode($body);
+    }
+
+
+
+
+
